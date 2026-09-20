@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "torch-mps-copy-dtype-guard"
+version = "0.1.0"
+description = "Guards a real MPS-to-CPU copy/cast bug: torch's .to()/.copy_() from an MPS tensor into a float64 or complex128 CPU destination silently writes zeros (or leaves stale memory) instead of raising or correctly converting (pytorch/pytorch#197715)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "zhuhroscar-tech" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
+torch = ["torch>=2.0"]
+
+[project.scripts]
+torch-mps-copy-dtype-guard = "torch_mps_copy_dtype_guard.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
